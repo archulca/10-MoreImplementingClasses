@@ -663,7 +663,12 @@ class Line(object):
         # floating-point errors while distinguishing numbers that really
         # are different from each other.
         #######################################################################
-
+        a = self.slope()
+        b = self.slope()
+        if round(a,12) == round(b,12):
+            return True
+        else:
+            return False
     def reset(self):
         """
         What comes in:
