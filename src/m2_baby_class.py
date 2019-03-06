@@ -42,7 +42,7 @@ def main():
 
 
 ###############################################################################
-# TODO: 2.
+# DONE: 2.
 #
 #  Step 2a:  Implement a class called   Baby   that has a constructor method
 #            (__init__) and two other methods, as described below.
@@ -112,10 +112,11 @@ class Baby (object):
     def __init__(self,name):
         self.name = name
         self.count = 0
-        print('Hello baby',self.name)
+        print('Hello baby',self.name,'!')
 
     def feed_baby(self):
-        print('Thank you for feeding baby', self.name)
+        self.count = 0
+        print('Thank you for feeding baby', self.name, '.')
 
     def hour_passes(self):
         self.count = self.count +1
