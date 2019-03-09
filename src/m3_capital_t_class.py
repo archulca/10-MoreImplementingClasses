@@ -21,9 +21,9 @@ def main():
     print(' to run the testing code as you complete the TODOs.')
 
     run_test_simple_t()
-    # run_test_set_colors()
-    # run_test_move_by()
-    # run_test_clone()
+    run_test_set_colors()
+    run_test_move_by()
+    run_test_clone()
 
 
 def run_test_simple_t():
@@ -170,12 +170,12 @@ class CapitalT(object):
         #   and *** NO OTHER INSTANCE VARIABLES. ***
         #   Note: Implement   attach_to   before testing this __init__ method.
         # ---------------------------------------------------------------------
-        corner_1 = rg.Point(intersection_center.x - width/2, intersection_center.y - letter_thickness/2)
-        corner_2 = rg.Point(intersection_center.x + width/2, intersection_center.y + letter_thickness/2)
-        corner_3 = rg.Point(intersection_center.x - letter_thickness/2, intersection_center.y - letter_thickness/2)
-        corner_4 = rg.Point(intersection_center.x + letter_thickness/2, intersection_center.y + letter_thickness/2)
-        self.h_rect = rg.Rectangle(corner_1,corner_2)
-        self.v_rect = rg.Rectangle(corner_3,corner_4)
+        corner1 = rg.Point(intersection_center.x - width/2, intersection_center.y - letter_thickness/2)
+        corner2 = rg.Point(intersection_center.x + width/2, intersection_center.y + letter_thickness/2)
+        corner3 = rg.Point(intersection_center.x - letter_thickness/2, intersection_center.y - letter_thickness/2)
+        corner4 = rg.Point(intersection_center.x + letter_thickness/2, intersection_center.y + height - letter_thickness/2)
+        self.h_rect = rg.Rectangle(corner1,corner2)
+        self.v_rect = rg.Rectangle(corner3,corner4)
 
     def attach_to(self, window):
         """
@@ -204,8 +204,8 @@ class CapitalT(object):
         #     c. Compare the graphics window to the   simple_t.pdf   pictures.
         #        They should look exactly the same as each other.
         # ---------------------------------------------------------------------
-        self.h_rect.attach_to(window)
         self.v_rect.attach_to(window)
+        self.h_rect.attach_to(window)
 
     def set_colors(self, fill_color, outline_color):
         """
@@ -230,7 +230,7 @@ class CapitalT(object):
           :type outline_color: str
         """
         # ---------------------------------------------------------------------
-        # TODO: 5.
+        # DONE: 5.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -238,6 +238,10 @@ class CapitalT(object):
         #     c. Compare the graphics window to the  set_colors.pdf   pictures.
         #        They should look exactly the same as each other.
         # ---------------------------------------------------------------------
+        self.v_rect.fill_color = fill_color
+        self.h_rect.fill_color = fill_color
+        self.h_rect.outline_color = outline_color
+        self.v_rect.outline_color = outline_color
 
     def move_by(self, dx, dy):
         """
@@ -263,7 +267,7 @@ class CapitalT(object):
           :type dy: int
         """
         # ---------------------------------------------------------------------
-        # TODO: 6.
+        # DONE: 6.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -274,6 +278,14 @@ class CapitalT(object):
         #        Note: the pdf shows the different locations that
         #        the T moves through, but there is only one T at any moment.
         # ---------------------------------------------------------------------
+        self.v_rect.corner_1.x = self.v_rect.corner_1.x + dx
+        self.v_rect.corner_1.y = self.v_rect.corner_1.y + dy
+        self.v_rect.corner_2.x = self.v_rect.corner_2.x + dx
+        self.v_rect.corner_2.y = self.v_rect.corner_2.y + dy
+        self.h_rect.corner_1.x = self.h_rect.corner_1.x + dx
+        self.h_rect.corner_1.y = self.h_rect.corner_1.y + dy
+        self.h_rect.corner_2.x = self.h_rect.corner_2.x + dx
+        self.h_rect.corner_2.y = self.h_rect.corner_2.y + dy
 
     def clone(self):
         """
@@ -296,7 +308,7 @@ class CapitalT(object):
           :rtype: CapitalT
         """
         # ---------------------------------------------------------------------
-        # TODO: 7.
+        # DONE: 7.
         #   READ the above specification, including the Example.
         #   Implement this method, then TEST it by:
         #     a. Un-comment the call to its test function, in main.  Run.
@@ -308,6 +320,13 @@ class CapitalT(object):
         # IMPORTANT RESTRICTION: You are NOT permitted to add any instance
         # variables beyond  h_rect  and  v_rect, at any point of this exercise.
         #######################################################################
+        center = self.h_rect.get_center()
+        height = self.v_rect.corner_1.y - self.v_rect.corner_2.y
+        width = self.h_rect.corner_1.x - self.h_rect.corner_2.x
+        thickness = self.h_rect.corner_1.y - self.h_rect.corner_2.y
+        new = CapitalT(center, height, width, thickness)
+        new.set_colors(self.v_rect.fill_color, self.h_rect.outline_color)
+        return new
 
 
 # -----------------------------------------------------------------------------
